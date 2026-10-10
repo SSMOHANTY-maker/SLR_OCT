@@ -1,0 +1,654 @@
+<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vihara Tech | Salary Prediction</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: #222;
+
+            background:
+                radial-gradient(circle at 10% 10%,
+                    rgba(255, 69, 0, 0.18),
+                    transparent 25%),
+
+                radial-gradient(circle at 90% 90%,
+                    rgba(190, 0, 40, 0.15),
+                    transparent 28%),
+
+                linear-gradient(135deg,
+                    #fff7f3,
+                    #ffffff,
+                    #fff0e9);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* =====================================================
+           BACKGROUND DECORATION
+        ===================================================== */
+
+        .circle {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        .circle-one {
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 69, 0, 0.08);
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-two {
+            width: 350px;
+            height: 350px;
+            background: rgba(180, 0, 0, 0.07);
+            bottom: -150px;
+            right: -120px;
+        }
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .main-card {
+            width: 100%;
+            max-width: 850px;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            border-radius: 28px;
+
+            padding: 45px;
+
+            box-shadow:
+                0 30px 80px rgba(100, 20, 0, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.06);
+
+            border: 1px solid rgba(255, 69, 0, 0.12);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top gradient line */
+
+        .main-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 7px;
+
+            background: linear-gradient(
+                90deg,
+                #a80000,
+                #ff3d00,
+                #ff7900,
+                #a80000
+            );
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .brand {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .brand h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 48px;
+            letter-spacing: 2px;
+            color: #b00000;
+            text-transform: uppercase;
+        }
+
+        .brand h1 span {
+            color: #ff4b00;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 15px;
+            color: #777;
+            margin-bottom: 35px;
+            font-weight: 500;
+        }
+
+        /* =====================================================
+           PROJECT BADGE
+        ===================================================== */
+
+        .badge {
+            width: fit-content;
+            margin: 0 auto 18px;
+
+            padding: 8px 18px;
+
+            border-radius: 50px;
+
+            background: #fff0ea;
+            color: #c00000;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            border: 1px solid rgba(255, 69, 0, 0.15);
+        }
+
+        /* =====================================================
+           FORM SECTION
+        ===================================================== */
+
+        .form-box {
+            background: #fff;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            border: 1px solid #eeeeee;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-title {
+            font-size: 21px;
+            font-weight: 700;
+            color: #222;
+
+            margin-bottom: 22px;
+        }
+
+        .form-title span {
+            color: #ff4500;
+        }
+
+        /* =====================================================
+           FORM ELEMENTS
+        ===================================================== */
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #333;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 16px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 18px;
+            color: #ff4500;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+
+            padding: 15px 18px 15px 48px;
+
+            border: 2px solid #eeeeee;
+
+            border-radius: 12px;
+
+            background: #fafafa;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+
+            color: #222;
+
+            outline: none;
+
+            transition: 0.3s ease;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            background: #fff;
+
+            border-color: #ff4500;
+
+            box-shadow:
+                0 0 0 4px rgba(255, 69, 0, 0.08);
+
+            transform: translateY(-1px);
+        }
+
+        /* =====================================================
+           PREDICT BUTTON
+        ===================================================== */
+
+        .predict-btn {
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 16px 25px;
+
+            border: none;
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a80000,
+                    #ff4500,
+                    #ff7300
+                );
+
+            color: #fff;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 25px rgba(255, 69, 0, 0.25);
+
+            transition: all 0.3s ease;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 18px 35px rgba(255, 69, 0, 0.32);
+        }
+
+        .predict-btn:active {
+            transform: translateY(0);
+        }
+
+        /* =====================================================
+           PREDICTION RESULT
+        ===================================================== */
+
+        .prediction {
+            margin-top: 28px;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a80000,
+                    #ff4500,
+                    #ff7000
+                );
+
+            color: white;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 30px rgba(255, 69, 0, 0.22);
+
+            animation: resultAppear 0.6s ease;
+        }
+
+        .prediction-label {
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            opacity: 0.85;
+
+            margin-bottom: 5px;
+        }
+
+        .prediction-value {
+            font-size: 28px;
+
+            font-weight: 800;
+        }
+
+        /* =====================================================
+           PROJECT INFORMATION
+        ===================================================== */
+
+        .project-info {
+            text-align: center;
+
+            margin-top: 35px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #eeeeee;
+        }
+
+        .project-info h2 {
+            font-family: 'Anton', sans-serif;
+
+            font-size: 28px;
+
+            letter-spacing: 1px;
+
+            color: #b00000;
+
+            margin-bottom: 5px;
+        }
+
+        .project-info p {
+            color: #777;
+
+            font-size: 14px;
+
+            font-weight: 500;
+        }
+
+        .project-info .orange {
+            color: #ff4500;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: #999;
+        }
+
+        .footer strong {
+            color: #b00000;
+        }
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes resultAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 20px 15px;
+            }
+
+            .main-card {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .brand h1 {
+                font-size: 38px;
+            }
+
+            .tagline {
+                font-size: 13px;
+            }
+
+            .form-box {
+                padding: 22px 18px;
+            }
+
+            .prediction-value {
+                font-size: 23px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .main-card {
+                padding: 25px 15px;
+            }
+
+            .brand h1 {
+                font-size: 32px;
+            }
+
+            .form-title {
+                font-size: 18px;
+            }
+
+            input[type="number"],
+            input[type="text"] {
+                padding: 14px 14px 14px 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background decoration -->
+    <div class="circle circle-one"></div>
+    <div class="circle circle-two"></div>
+
+
+    <!-- Main Application -->
+    <div class="main-card">
+
+        <!-- Brand -->
+        <div class="brand">
+            <h1>VIHARA <span>TECH</span></h1>
+        </div>
+
+        <div class="tagline">
+            Machine Learning • Data Science • Artificial Intelligence
+        </div>
+
+
+        <!-- Project Badge -->
+        <div class="badge">
+            Machine Learning Project
+        </div>
+
+
+        <!-- Form -->
+        <div class="form-box">
+
+            <div class="form-title">
+                💼 Salary <span>Prediction System</span>
+            </div>
+
+            <!-- =================================================
+                 IMPORTANT:
+                 Keep your existing form action and input names
+                 exactly the same here.
+            ================================================== -->
+
+            <form action="/predict" method="post">
+
+                <!--
+                Replace the input below with your EXISTING input
+                fields if your original HTML contains more than one.
+                Do not change their name attributes.
+                -->
+
+                <div class="input-group">
+
+                    <label for="experience">
+                        Years of Experience
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">📊</span>
+
+                        <input
+                            type="number"
+                            id="experience"
+                            name="experience"
+                            placeholder="Enter years of experience"
+                            step="any"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="predict-btn">
+                    🚀 Predict Salary
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- =====================================================
+             PREDICTION RESULT
+        ====================================================== -->
+
+        {% if prediction_text %}
+
+        <div class="prediction">
+
+            <div class="prediction-label">
+                Predicted Salary
+            </div>
+
+            <div class="prediction-value">
+                ₹ {{ prediction_text }}
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             PROJECT INFORMATION
+        ====================================================== -->
+
+        <div class="project-info">
+
+            <h2>
+                Project By <span class="orange">Kamal</span>
+            </h2>
+
+            <p>
+                Data Scientist & NLP Engineer
+            </p>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="footer">
+            © 2026 <strong>Vihara Tech</strong> • Machine Learning Project
+        </div>
+
+    </div>
+
+
+    <!-- Optional Bootstrap JS — not required for this design -->
+    <script>
+        // Smooth page initialization
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form = document.querySelector("form");
+
+            if (form) {
+                form.addEventListener("submit", function () {
+
+                    const button = form.querySelector("button");
+
+                    if (button) {
+                        button.innerHTML = "⏳ Predicting...";
+                    }
+
+                });
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
